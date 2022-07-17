@@ -1,12 +1,9 @@
 package com.dreamfactory.exam_controller.coffee;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.Map;
 
 @RestController
 @RequestMapping(value="v1/coffees"/*, produces = MediaType.APPLICATION_JSON_VALUE*/)
@@ -16,27 +13,33 @@ public class CoffeeController {
     @PostMapping
 
     //postCoffee() 메서드는 커피 정보를 등록해 준다
-    public /*String*/ResponseEntity postCoffee(@RequestParam("coffee")String coffee,
-                                                 @RequestParam("coffeeId")String coffeeId,
-                                                 @RequestParam("korName")String korName,
-                                                 @RequestParam("engName")String engName,
-                                                 @RequestParam("price")int price) {
+    public /*String*/ResponseEntity postCoffee(//@RequestParam("coffee")String coffee,
+                                               @RequestHeader("user-agent")String userAgent,
+                                               @RequestParam("coffeeId")String coffeeId,
+                                               @RequestParam("korName")String korName,
+                                               @RequestParam("engName")String engName,
+                                               @RequestParam("price")int price) {
 //        System.out.println("# coffee:" + coffee);
 //        System.out.println("# coffeeId:" + coffeeId);
 //        System.out.println("# korName:" + korName);
 //        System.out.println("# engName:" + engName);
 //        System.out.println("# price:" + price);
 
-        //Map객체로 변경
-            Map<String, String> map = new HashMap<>();
-            map.put("coffee", coffee);
-            map.put("coffeeId", coffeeId);
-            map.put("korName", korName);
-            map.put("engName", engName);
-            map.put("price", String.valueOf(price));
+        //@RequestHeader 로 개별 정보 받아오기
+        System.out.println("user-agent: " + userAgent);
+        return new ResponseEntity<>(new Coffee(korName, engName, price),
+                HttpStatus.CREATED);
 
-            //return 값을 ResponseEntity로 변경
-        return new ResponseEntity<>(map, HttpStatus.CREATED);
+        //Map객체로 변경
+//            Map<String, String> map = new HashMap<>();
+//            map.put("coffee", coffee);
+//            map.put("coffeeId", coffeeId);
+//            map.put("korName", korName);
+//            map.put("engName", engName);
+//            map.put("price", String.valueOf(price));
+//
+//            //return 값을 ResponseEntity로 변경
+//        return new ResponseEntity<>(map, HttpStatus.CREATED);
 
 //        String reponse =
 //                "{\"" +
@@ -55,7 +58,7 @@ public class CoffeeController {
     public /*String*/ResponseEntity getCoffee(@PathVariable("coffee-id")long coffeeId) {
         System.out.println("# coffeeId: " + coffeeId);
         return new ResponseEntity<>(HttpStatus.OK);
-        }
+    }
 
     @GetMapping //별도의 URI를 지정해주지 않았기 때문에 클래스 레벨의 URI(“/v1/coffees”)에 매핑된다
 

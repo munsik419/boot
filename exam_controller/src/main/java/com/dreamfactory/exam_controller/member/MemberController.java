@@ -6,7 +6,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.lang.reflect.Member;
 import java.sql.SQLOutput;
 //@애터테이션에 의해 자동으로 import 된다
 
@@ -15,10 +14,11 @@ import java.util.Map;
 
 
 @RestController
-//Spring MVC에서는 특정 클래스에 @RestController 를 추가하면 해당 클래스가 REST API의 리소스(자원, Resource)를 처리하기 위한 API 엔드포인트로 동작함을 정의한다
+
+/*Spring MVC에서는 특정 클래스에 @RestController 를 추가하면 해당 클래스가 REST API의 리소스(자원, Resource)를 처리하기 위한 API 엔드포인트로 동작함을 정의한다
 //@RestController가 추가된 클래스는 애플리케이션 로딩 시, Spring Bean 으로 등록 해 준다
 //REST API란 REST 방식을 통해서 리소스에 접근하기 위한 서비스 API를 지칭한다
-//REST(Representational State Transfer)는 HTTP 네트워크 상의 리소스(Resource, 자원)를 정의하고 해당 리소스를 URI라는 고유의 주소로 접근하는 접근 방식을 의미한다
+//REST(Representational State Transfer)는 HTTP 네트워크 상의 리소스(Resource, 자원)를 정의하고 해당 리소스를 URI라는 고유의 주소로 접근하는 접근 방식을 의미한다*/
 
 @RequestMapping("v1/members"/*,produce=MediaType.APPLICATION_JSON_VALUE*/)
 //produces애트리뷰트(Attribute)는 응답 데이터를 어떤 미디어 타입으로 클라이언트에게 전송할 지를 설정한다
@@ -27,10 +27,11 @@ import java.util.Map;
 public class MemberController {
     @PostMapping
 
-    //postMember() 메서드는 회원 정보를 등록해주는 핸들러 메서드이다
+    /*postMember() 메서드는 회원 정보를 등록해주는 핸들러 메서드이다
     //클라이언트의 요청 데이터(request body)를 서버에 생성할 때 사용하는 애너테이션이다
-    //클라이언트에서 요청 전송 시 HTTP Method 타입을 동일하게 맞춰 주어야 한다(POST)
+    //클라이언트에서 요청 전송 시 HTTP Method 타입을 동일하게 맞춰 주어야 한다(POST)*/
     public /*String*/ResponseEntity postMember(@RequestHeader Map<String, String> headers,
+                                     //@RequestHeader를 사용해서 Request의 모든 헤더 정보를 Map으로 전달 받는다
                                                @RequestParam("email")String email,
                                                @RequestParam("name")String name,
                                                @RequestParam("phone")String phone) {

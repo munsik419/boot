@@ -5,6 +5,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,14 +16,19 @@ public class OrderController {
     @PostMapping
 
     //postOrder() 메서드는 커피 주문 정보를 등록한다
-    public /*String*/ResponseEntity postOrder(@RequestParam("memberId") String memberId,
+    public /*String*/ResponseEntity postOrder(HttpServletRequest httpServletRequest,
+                                              @RequestParam("memberId") String memberId,
                                               @RequestParam("coffeeId") String coffeeId) {
 
-        Map<String, String> map = new HashMap<>();
-        map.put("memberId", memberId);
-        map.put("coffeeId", coffeeId);
+////        Map<String, String> map = new HashMap<>();
+////        map.put("memberId", memberId);
+////        map.put("coffeeId", coffeeId);
+//
+//        return new ResponseEntity(map, HttpStatus.CREATED);
 
-        return new ResponseEntity(map, HttpStatus.CREATED);
+        System.out.println("user-agent: " + httpServletRequest.getHeader("user-agent"));
+        return new ResponseEntity<>(new Order(memberId, coffeeId),
+                HttpStatus.CREATED);
 //        System.out.println("# memberId:" + memberId);
 //        System.out.println("# coffeeId:" + coffeeId);
 //
